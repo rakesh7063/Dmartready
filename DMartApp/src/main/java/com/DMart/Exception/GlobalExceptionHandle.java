@@ -39,7 +39,7 @@ public class GlobalExceptionHandle {
         return new ResponseEntity<MyErrorDetails>(errorDetails,HttpStatus.BAD_GATEWAY);
     }
 
-    @ExceptionHandler(Stock_Exceptions.class)
+    @ExceptionHandler(StockException.class)
     public ResponseEntity<MyErrorDetails> stockExceptionsHandle(StockException e, WebRequest web){
         MyErrorDetails errorDetails = new MyErrorDetails();
         errorDetails.setMessage(e.getMessage());
