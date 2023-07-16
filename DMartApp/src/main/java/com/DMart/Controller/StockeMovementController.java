@@ -2,6 +2,7 @@ package com.DMart.Controller;
 
 import com.DMart.Model.Stock;
 import com.DMart.Model.StockMovement;
+import com.DMart.Model.StockMovementDTO;
 import com.DMart.Services.StockMovementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,19 +19,23 @@ public class StockeMovementController {
     private StockMovementService movementService;
 
 
-    @GetMapping("/all")
-    public ResponseEntity<List<StockMovement>> getAllStockMovementsControllerHandle(@RequestBody Stock stock){
+    @GetMapping("/{id}")
+    public ResponseEntity<List<StockMovement>> getAllStockMovementsControllerHandle(@PathVariable("id") Integer id ){
 
-        List<StockMovement> stMovements = movementService.getByStock(stock);
-        return new ResponseEntity<List<StockMovement>>(stMovements, HttpStatus.OK);
-
+        List<StockMovement> stMovements = movementService.getByStockId(id);
+            return new ResponseEntity<>(stMovements,HttpStatus.OK);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<StockMovement> addStockMovementControllerHandle(@RequestBody StockMovement stovkMovement){
+    public ResponseEntity<StockMovement> addStockMovementControllerHandle(@RequestBody StockMovementDTO movementDTO){
 
-        StockMovement stMovement = movementService.addStockMovement(stovkMovement);
-        return new ResponseEntity<StockMovement>(stMovement,HttpStatus.OK);
+        StockMovement stMovement = movementService.addStockMovement(movementDTO);
+        return new ResponseEntity<StockMovement>(stMovement,HttpStatus.CREATED);
 
+    }
+    @GetMapping("/all")
+    public ResponseEntity<List<StockMovement>> findAllStockMovement(){
+        List<StockMovement> movementList = movementService.getAllMovement();
+        return  new ResponseEntity<>(movementList,HttpStatus.OK);
     }
 }

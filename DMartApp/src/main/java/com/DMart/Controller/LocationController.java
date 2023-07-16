@@ -16,7 +16,7 @@ public class LocationController {
     @Autowired
     private LocationService locationService;
 
-    @GetMapping("")
+    @GetMapping("/all")
     public ResponseEntity<List<Location>> getAllLocationHandle(){
 
         List<Location> locations = locationService.getAllLocation();
@@ -24,7 +24,7 @@ public class LocationController {
 
     }
 
-    @PostMapping("")
+    @PostMapping("/add")
     public ResponseEntity<Location> addNewLocation(@RequestBody Location location){
         Location storeLocation = locationService.addLocation(location);
         return new ResponseEntity<Location>(storeLocation,HttpStatus.OK);
@@ -32,9 +32,9 @@ public class LocationController {
     }
 
     @GetMapping("/getByName")
-    public ResponseEntity<List<Location>> getByName(@RequestParam(name = "name") String name){
-        List<Location> storeLocations = locationService.findByName(name);
-        return new ResponseEntity<List<Location>>(storeLocations,HttpStatus.OK);
+    public ResponseEntity<Location> getByName(@RequestParam(name = "name") String name){
+        Location storeLocations = locationService.findByName(name);
+        return new ResponseEntity<>(storeLocations,HttpStatus.OK);
 
     }
 

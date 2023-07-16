@@ -1,5 +1,7 @@
 package com.DMart.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,11 +19,14 @@ public class StockMovement {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer movementId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Location location;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Stock stocks;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Location sourceLocation;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Location destinationLocation;
 
     private Integer quantity;
 

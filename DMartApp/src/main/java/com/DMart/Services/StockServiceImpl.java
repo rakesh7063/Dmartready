@@ -60,8 +60,11 @@ public class StockServiceImpl implements StockService{
     public Stock deleteById(int id) throws StockException {
         Optional<Stock> opt = stockRepo.findById(id);
         if(opt.isPresent()) {
-            stockRepo.deleteById(id);
-            return opt.get();
+           Stock existingStock = opt.get();
+             stockRepo.delete(existingStock);
+
+        return existingStock;
+
         }else
             throw new StockException("stock item does not exist with id :"+id);
 

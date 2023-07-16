@@ -1,5 +1,7 @@
 package com.DMart.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +20,7 @@ public class Stock {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer itemId;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String name;
 
     @Column(nullable = false)
@@ -27,6 +29,7 @@ public class Stock {
     @Column(nullable = false)
     private Integer quantity;
 
-    @OneToMany(cascade = CascadeType.ALL)
+   @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stocks")
     private List<StockMovement> stockMovements;
 }

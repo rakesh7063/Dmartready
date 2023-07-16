@@ -41,7 +41,7 @@ public class StockController {
 
     }
 
-    @GetMapping("/update")
+    @PutMapping("/QuantityUpdate")
     public ResponseEntity<Stock> updateQuantityControllerHandle(@RequestParam("id") int id, @RequestParam("quantity") int quantity){
 
         Stock stock = stockService.updateQuantityById(id, quantity);

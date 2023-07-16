@@ -3,7 +3,6 @@ package com.DMart.Services;
 import com.DMart.Exception.LocationException;
 import com.DMart.Model.Location;
 import com.DMart.Repository.LocationDao;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +16,9 @@ public class LocationServiceImpl implements LocationService {
   private LocationDao locationRepo;
 
     @Override
-    public List<Location> findByName(String name) throws LocationException {
-            List<Location> listStoreLocation = locationRepo.findAllByName(name);
-            if(listStoreLocation.isEmpty()) {
-                throw new LocationException("Locations does not exist...");
-            }else {
-                return listStoreLocation;
-            }
+    public Location findByName(String name) throws LocationException {
+            Location storeLocation = locationRepo.findByStoreName(name).orElseThrow(()-> new LocationException(("Location does not exist..")));
+          return  storeLocation;
     }
 
     @Override
