@@ -57,7 +57,7 @@ public class StockController {
 
     }
 
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<Stock> deleteByIdControllerHandle(@RequestParam("id") int id){
 
         Stock stock = stockService.deleteById(id);
